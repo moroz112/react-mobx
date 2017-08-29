@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+@observer
+export default class App extends Component {
+  filter(e) {
+    this.props.store.filter = e.target.value;
+  }
+	createNew(e) {
+		if(e.which === 13) {
+			this.props.store.createNew(e.target.value)
+		}
+	}
+
   render() {
+
+    const {filter, todoList} = this.props.store;
     return (
+
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <ul>
+          {todoList.map( (todo, index) =>
+              <li key={index}> {todo}</li>
+        )}
+        </ul>
+        <div>{filter}</div>
+        <div className="filter">
+          <label>Filter</label>
+          <input value={filter} onChange={this.filter.bind(this)}/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="create">
+          <input onKeyPress={this.createNew.bind(this)}/>
+        </div>
       </div>
     );
   }
 }
-
-export default App;
