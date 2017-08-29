@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import logo from './logo.svg';
+import DevTools from 'mobx-react-devtools';
 import './App.css';
 
 @observer
@@ -33,6 +34,7 @@ export default class App extends Component {
         <div className="create">
           <input onKeyPress={this.createNew.bind(this)}/>
         </div>
+          <DevTools/>
       </div>
     );
   }
